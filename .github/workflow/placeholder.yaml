@@ -1,0 +1,11 @@
+# .github/workflows/ducke.yml
+
+name: 🦆 Ducke
+
+on: [push, pull_request, workflow_dispatch]
+
+jobs:
+  quack:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "ducke 🦆"
