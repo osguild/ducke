@@ -27,5 +27,5 @@ jobs:
       - name: Upload release artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ducke_linux_x86-84
+          name: ducke_${{ runner.arch }}
           path: target/${{ matrix.BUILD_TARGET }}/ducke
