@@ -2,7 +2,7 @@
 
 name: Distribute Binaries on Release 
 
-## TODO: Uncomment this before merge
+
 on: [release]
 
 
