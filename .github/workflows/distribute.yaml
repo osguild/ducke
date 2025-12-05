@@ -1,10 +1,6 @@
 # .github/workflows/ducke.yml
-
 name: Distribute Binaries on Release 
-
-
 on: [release]
-
 
 jobs:
   build:
@@ -29,4 +25,7 @@ jobs:
         with:
           name: ducke_${{ runner.os }}-${{ runner.arch }}
           path: target/${{ matrix.BUILD_TARGET }}/ducke
-      
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/${{ matrix.BUILD_TARGET }}/ducke
