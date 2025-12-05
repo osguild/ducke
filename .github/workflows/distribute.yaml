@@ -11,11 +11,12 @@ on:
     branches:
       - 'feat/create_distribution'
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  os-matrix:
     strategy:
       matrix:
+        os: [ubuntu-latest, windows-latest]
         BUILD_TARGET: [release]
+    runs-on: ${{ matrix.os }}
     outputs:
       release_built: ${{ steps.set-output.outputs.release_built }}
     steps:
