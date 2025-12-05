@@ -3,13 +3,9 @@
 name: Distribute Binaries on Release 
 
 ## TODO: Uncomment this before merge
-# on: [release]
+on: [release]
 
-## TODO: Remove this `on` section before merge
-on:
-  push:
-    branches:
-      - 'feat/create_distribution'
+
 jobs:
   build:
     strategy:
