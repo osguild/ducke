@@ -1,0 +1,31 @@
+# .github/workflows/ducke.yml
+name: Distribute Binaries on Release 
+on: [release]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        # Need to add macos binary notarization: http://github.com/marketplace/actions/code-sign-action
+        os: [ubuntu-latest, macos-latest]
+        BUILD_TARGET: [release]
+    runs-on: ${{ matrix.os }}
+    outputs:
+      release_built: ${{ steps.set-output.outputs.release_built }}
+    steps:
+      - uses: actions/checkout@v5
+      - name: install cross
+        run: cargo install cross
+      - name: Build binaries in "${{ matrix.BUILD_TARGET }}" mode
+        run: cargo build --profile ${{ matrix.BUILD_TARGET }}
+      - name: Run tests in "${{ matrix.BUILD_TARGET }}" mode
+        run: cargo test --profile ${{ matrix.BUILD_TARGET }}
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ducke_${{ runner.os }}-${{ runner.arch }}
+          path: target/${{ matrix.BUILD_TARGET }}/ducke
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/${{ matrix.BUILD_TARGET }}/ducke
