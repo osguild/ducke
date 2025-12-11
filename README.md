@@ -4,8 +4,9 @@
 
 2. `cd ducke`
 
-3. For debug : `cargo build` 
+3. For debug (or to build locally): `cargo build` 
    For release: `cargo build --release`
+
 
 4. To run debug : `./target/debug/ducke` 
    To run release : `./target/release/ducke` 
