@@ -7,3 +7,5 @@ pub fn is_git_installed() -> bool {
         .map(|output| output.status.success())
         .unwrap_or(false)
 }
+
+pub fn install_vpckg() -> Result<()> {}
