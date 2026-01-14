@@ -1,17 +1,28 @@
 use crossterm::event::{self, Event};
 use ratatui::{Frame, text::Text};
+
+use crate::utils::clone_extension_template;
 mod utils;
 
 fn main() {
     // Check for git BEFORE initializing the terminal
     if !utils::is_git_installed() {
         eprintln!("Error: Git is not installed or not in PATH");
-        eprintln!("Please install Git to use this application. For details see: https://git-scm.com/install/");
+        eprintln!(
+            "Please install Git to use this application. For details see: https://git-scm.com/install/"
+        );
         std::process::exit(1);
     }
 
     println!("✓ Git is installed and ready!");
-    std::thread::sleep(std::time::Duration::from_secs(3));
+
+    if let Some(proj_name) = std::env::args().nth(1) {
+        println!("Project name: {}", &proj_name);
+
+        clone_extension_template(proj_name).unwrap();
+
+        return;
+    }
 
     let mut terminal = ratatui::init();
     loop {
